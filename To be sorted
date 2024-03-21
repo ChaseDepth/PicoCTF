@@ -1,1 +1,256 @@
 # PicoNotes
+PicoCTF
+PICO CTF
+
+Warm2
+Change '42' in base 10 to base 2
+Changing base 10 to binary essentially
+Installed bc. BC is basic calculator. the cmd was not installed in my Kali machine but was in Abuntu. Originally solved in abuntu. 
+	echo 'obase=2; ibase=10; 42' | bc
+		replies with 101010
+To install bc, I googled how to install BC for Kali linux. Found that GNU created the BC application. Installed and extracted. Dropped it into the Kali VM. Then wrote
+	sudo apt install bc
+Done.
+I will need to install in Cygwin somehow. It's not user firendly to update apparantly. It doesn't even have 'apt' as a command lol.
+
+
+Cryptography
+Insatalled hxtools
+	sudo apt-get install hxtools
+	Now I can just do rot13 instead of throwing crazy code
+	
+	echo "cvpbPGS{arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_MAZyqFQj}" | rot13
+picoCTF{next_time_I'll_try_2_rounds_of_rot13_ZNMldSDw}
+
+
+Python Wrangling
+
+you need to copy links to command lines so
+	wget (the link copy)
+It'll download the file in the terminal. Do that for the python script, password txt, and flag txt. The flag txt is encrpyted. That needs to be decrypted. So..
+	 python ende.py -d flag.txt.en
+it'll ask for the password which is in the pw.txt file.
+Done. Man what a headache. 
+
+
+Wave a flag
+
+Multiple ways to complete this. Can save into terminal by 
+	wget (link copy). 
+cat the file and read through the messages saved in it. OR save the file and open to terminal from file location manually. Mouse and click deal. No terminal initially. It'll take you directly to the terminal from there with that destination. Then play along. 
+	chmod u+rwx ./warm
+then
+	./warm
+and it goes along like I'm executing the file. ./warm -h shows the flag. 
+
+
+Nice Netcat
+using netcat, you need to
+	nc mercury.picoctf.net 43239
+but it only sends a bunch of numbers back. It's actually in decimal. Lucky guess but it made sense. hexadecimal looks like 00xd. The numbers were like 88 112 90. Copied and pasted into a decimal to text converter with ASCII encoding. However, a neat trick...
+	tr -d '\n' <./filename       (filename should be txt editor/reader)
+relays information back 88 112 90 instead of 
+88
+112
+90
+
+
+Static aint always noise
+I need to remember to run files when I download them to the terminal to see what it does. 
+	./
+download both the bash and static. The bash is supposed convert the static file into something else. You can see in the bash file that it spits out strings. So first, 
+	chmod u+rwx      (both files so I can execute them)
+then
+	./ltdis.sh static
+to process the static. It'll output two new .txt files, chmod those two, then cat. Look through one of them with .strings. and find the flag hiding in the mess.
+
+
+Tab, Tab, Attack
+download file with wget in terminal. Then unzip the file
+	unzip <filename>
+./<filename>
+This folder had long ramblining directories but a neat trick is cd <tab*> so it'll auto pop the available filenames. Ls when I enter each folder until I find a program to run. run it with ./ and it replied with the flag.
+
+
+Magikarp Ground Mission
+log in with ssh. Done it plenty of times with overthewire. just had to search through files to find the 3 flags. Changed with chmod so I can open some files. Even found a RSA key lol. However, I learned how to navigate through the directories. cd .. to move around or cd ~ to go home or back I believe. 
+
+
+Lets warm up
+Double check my own typing. Remember picoCTF likes picoCTF{xxx} format. Used a hex to ascii converter but remember that 0x means the following is written in hexadecimal. Imagine $ for saying this is American Dollars. 
+
+Warm up
+Same deal. Convert hexadecimal to decimal. Understand hexadecimal is already in base 16, and decimal is already base 10. Remove 0x in conversion.
+
+Strings it
+Download the file with wget from the terminal. Then write the below
+strings strings | grep pico     	
+picoCTF{5tRIng5_1T_827aee91}
+Remember that pipe commands allows you to write two commands. I wrote to (command)strings (file)strings (the file has thousands of code in it. CTRL+F finds it easy but I got lucky my terminal can save all these codes in cache so well. Grep pico just looks for the word pico and returns the line with that. 
+https://linux.die.net/man/1/strings
+
+Bases
+Was given a weird string to decode. No files, just a string. The question said it had to do something with bases. Binary is 2-base, Octal is 8, Decimal is 10, hex is 16, and base 32 and 64 are exactly what they sound. 
+https://cryptii.com/pipes/base32
+
+First Grep
+Remember piping! Super handy. The file to wget has a ton of code so 
+	Cat file | grep pico
+Done done
+https://ryanstutorials.net/linuxtutorial/grep.php
+	has more specific tags that should be helpful
+
+Codebook
+More running python. Helpful to remember. -d is to decrypt btw. Wget both files. Cat code.py shows me it decrypts and I have the codebook.txt so
+	Python code.py -d codebook.txt. 
+Done
+
+Convertme.py
+Wget. Then run it by 
+
+fixme
+fixed the script. Indentations mean something in python
+
+fixme2
+= means to give a value to something. like x = 5 will mean x is 5. == checks for (in)equality. so if x==y then true. x=5 and y=6. It’ll return false. 
+
+PW Crack 1
+Python scripts can have pw in them. 
+
+PW Crack 2
+http://www.csc.villanova.edu/~tway/resources/ascii-table.html
+the PW in the python code is in hex
+
+PICO CTF
+interencdec
+base64 has equal signs at the end because ASCI bytes need to end in multiples of 4. Equal signs pad out the rest in case the encryption ends with a byte less than 4. it is padding. You’ll only see none, one, or two. 
+original
+YidkM0JxZGtwQlRYdHFhR3g2YUhsZmF6TnFlVGwzWVROclgyMHdNakV5TnpVNGZRPT0nCg==
+Decodes to
+d3BqdkpBTXtqaGx6aHlfazNqeTl3YTNrX20wMjEyNzU4fQ==
+
+ which decodes to
+wpjvJAM{jhlyh_yk3jy9wa3k_m0212758}
+wpjvKAM{jhlyh_yk3njy9wa3k_m0212758}
+
+ROT19
+picoCTF{caera_rd3cr9pt3d_f0212758} 
+
+(all close. I had some outputs with b’’ and it confused all the decryption. Some sites will spit out gibberish until this is removed. 
+This is a Caesar encryption. Rotate now
+Kind of. remember that if you decode something and it comes out as b’’’ it’s actually a wrapper used by python to encode ASCII data into bytes. This can be the output accidently and needs to be removed before decoding more as appropriate or it’ll tarnish the decryption more. ChatGPT is ALLLLMOOOSTT great at decoding/encoding. 
+Tools used
+https://www.cachesleuth.com/rot.html
+https://www.rapidtables.com/web/tools/base64-decode.html
+
+
+Scan surprise
+ was just a QR code you needed to view from the terminal. A phone camera can do the rest. 
+
+format string
+
+402118 0 9fbd3a00 0 45b880 a347834 dec31070.9f9c4e60.9fbe94d0.1.dec31140.0.0.6f636970.6d316e34.33317937.3431665f.64663533.7.9fbeb8d8.7.74307250.6c797453.9.9fbfcde9.9f9cd098.9fbe94d0.0.dec31150.2e782522.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.222e.0.0.0.2f2f2f2f.2f2f2f2f.2f2f2f2f.2f2f2f2f.0.0.0
+
+402118 0 9fbd3a00 0 45b880 a347834 dec31070 9f9c4e60 9fbe94d0.1.dec31140.0.0.6f636970.6d316e34.33317937.3431665f.64663533.7.9fbeb8d8.7.74307250.6c797453.9.9fbfcde9.9f9cd098.9fbe94d0.0.dec31150.2e782522.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.222e.0.0.0.2f2f2f2f.2f2f2f2f.2f2f2f2f.2f2f2f2f.0.0.0
+
+okay so learned what a memory leak is and to exploit it, if you come across a system that spits the same info back, you can trick it to say what memory is stored in it with characters like “%x” and “%d”. You’ll need to break it up with . or / because spaces  
+okay, back at it. The format system is 64 bit. 
+
+%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.%d.
+
+%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.
+402118.0.1f28ea00.0.572880.a347834.1ff27fc0.1f07fe60.1f2a44d0.1.1ff28090.0.0.6f636970.6d316e34.33317937.3431665f.64663533.7.1f2a68d8.7.74307250.6c797453.9.1f2b7de9.1f088098.1f2a44d0.0.1ff280a0.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.78252e78.252e7825.2e78252e.0.
+570680.1.1f0a1d90.0.4011f6.0.1ff28518.0.5ec70595.1ff28518.4011f6.403e18.1f2e0040.56e50595.644d0595.0.0.0.0.0.b149c900.0.1f0a1e40.1ff28528.403e18.1f2e12e0
+.0.0.
+401110.1ff28510.0.0.401135.1ff28508.1c.1.1ff28ea6.0.1ff28ec1.1ff28ed4.1ff28edc.1ff28efa.1ff28f05.1ff28f1a.1ff28f37.1ff28f4d.1ff28f61.1ff28f72.1ff28fb4.1ff28fc3.1ff28fd0.0.21.1ff56000.33.e30.10.1f8bfbff.6.1000.11.64.3.400040.4.38.5.d.7.1f2a6000.8.0.9.401110.b.0.c.0.d.0.e.0.17.0.19.1ff28709.1a.2.1f.1ff28fdd.f.1ff28719.1b.1c.1c.20.0.0.49c9df00.cfaf62d0.36387882.
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.
+
+
+I’ll need to practice binary exploitation
+
+
+
+
+
+
+
+
+verify
+I have to check the hash of each file to see if they match the checksum of a hash I already have
+OG hash for the flag below. There is a .sh that decrypts I think. It will reveal the flag if I find the correct file.
+3ad37ed6c5ab81d31e4c94ae611e0adf2e9e3e6bee55804ebc7f386283e366a4
+sudo apt dist-upgrade
+
+sha256sum files/*
+this will run sha256sm for everything in the files directory. I can also add | > hash.txt so it would be in a file called hash.txt easily.
+
+files/e018b574 has the matching hash
+
+files/e018b574
+DO NOT DOWNLOAD THE FILES. They just don’t work right. Just log in through the shh if they provide it. Damn Stuck for over an hour doing the same thing over and over again. 
+It provided a decrypt.sh to decrypt the correct file that hashes matched with the known checksum so just run
+./decrypt.sh files/<file_name>
+
+
+cipher
+DLSeGAGDgBNJDQJDCFSFnRBIDjgHoDFCFtHDgJpiHtGDmMAQFnRBJKkBAsTMrsPSDDnEFCFtIbEDtDCIbFCFtHTJDKerFldbFObFCFtLBFkBAAAPFnRBJGEkerFlcPgKkImHnIlATJDKbTbFOkdNnsgbnJRMFnRBNAFkBAAAbrcbTKAkOgFpOgFpOpkBAAAAAAAiClFGIPFnRBaKliCgClFGtIBAAAAAAAOgGEkImHnIl  
+
+Downloaded visual studio 
+sudo dpkg -i <studio visual code download file from website>
+
+
+endianness
+
+rolpt
+118 114 105 108 105
+76 72 69 6c 69
+
+Alright soooo 
+https://cryptii.com/pipes/text-decimal
+That site is your best friend to find an endian. You need to convert a text into a hex (which is converted from the ASCII value of a text). For hxkff,  the hex is 68 78 6b 66 66 (which is also the little endian. Big endian is this exact code in reverse so 66 66 6b 78 68)
+
+echo -n "YourText" | xxd -p -e
+//for big endian//
+
+echo -n "YourText" | xxd -p | tac | tr -d '\n' && echo ""
+//for little endian
+
+Mob Psycho
+find dir/ -type f | xargs grep ‘string’
+//to find the string in a mess of directories. Change dir/ to the actual parent directory name like mob/
+
+
+stonks
+Alright.
+A stack is essentially a pile of memory and they are ‘stored’ on top of one another. These can be assorted by types like integers, strings, and hex. Afaik, %X is for hex, %S is strings. 
+https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
+That has a table of types of memory pointers. 
+A the stack of memory can be called a buffer? You want to set parameters around that. If code looks like this
+        char *user_buf = malloc(300 + 1);
+        printf("What is your API token?\n");
+        scanf("%300s", user_buf);
+        printf("Buying stonks with token:\n");
+        printf(user_buf);
+then there’s an issue to be exploited. See the last line. There’s no parameters when you select “buying stonks with token” in this python-designed chat. You can search for hex memory by asking it %X. A parameter to fix this would be printf(“%10X”, user_buf) I believe. This makes sure that there’s a cap of 10 characters that can be revealed.
+Create a separate tab, 
+	python 
+when python opens
+	‘%X’ * 100
+This will repeat back %X quicker than ChatGPT. Paste the output to the chat nc for this challenge when you select “buy some stonks!” It’ll ask what my API token is. This is where the vulnerability is housed. it’ll spit back a bunch of hex gibberish. 
+https://www.rapidtables.com/convert/number/hex-to-decimal.html
+Convert the hex. You’ll see backward bits hidden in the mess. Copy that. It needs it’s endians reversed. 
+Go back to python. VSC or terminal works fine
+s = 'ocip{FTC0l_I4_t5m_ll0m_y_y3n4cdbae52ÿÐ}'
+the string is stored
+	for x in range(0,len(s),4):
+     		print(s[x+3]+s[x+2]+s[x+1]+s[x],end='')
+Make sure to indent in python. Super important. So this code is giving each hex bit character value up to 4, as bits are stored in 4. Highest value is p, lowest is o with ocip. The print function will print each string value in reversed assigned bit value. Takes a few minutes to process.  
+
+PW Crack 3
+Alright. Mostly worked with python in this one. You can manipulate the code since the script already knows the password. It has the list of possible passwords in it, so just run it.
+Python likes to be tabbed and paragraphed together. If it a code is separate from a desired process, it may not run at all (at least I think so). 
+At around line 27, the script says it needs a user_pw to be input but we can # that to make it an unexecutable comment. The real money is just having the code run each possible pw itself. 
+	for user_pw in pos_pw_list:
+This simple line makes the code run itself in a loop until it finds the correct pw, provided the below is tabbed next
+ 
+add print(user_pw) btw so you can see what it was. The original code didn’t have that. 
