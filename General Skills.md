@@ -1,5 +1,5 @@
 # Python Wrangling
-you need to copy links to command lines so
+You need to copy links to command lines so
 	wget (the link copy)
 It'll download the file in the terminal. Do that for the python script, password txt, and flag txt. The flag txt is encrpyted. That needs to be decrypted. So..
 	 python ende.py -d flag.txt.en
@@ -15,7 +15,7 @@ then
 and it goes along like I'm executing the file. ./warm -h shows the flag. 
 
 # Nice Netcat
-using netcat, you need to
+Using netcat, you need to
 	nc mercury.picoctf.net 43239
 but it only sends a bunch of numbers back. It's actually in decimal. Lucky guess but it made sense. hexadecimal looks like 00xd. The numbers were like 88 112 90. Copied and pasted into a decimal to text converter with ASCII encoding. However, a neat trick...
 	tr -d '\n' <./filename       (filename should be txt editor/reader)
@@ -34,7 +34,7 @@ then
 to process the static. It'll output two new .txt files, chmod those two, then cat. Look through one of them with .strings. and find the flag hiding in the mess.
 
 # Tab, Tab, Attack
-download file with wget in terminal. Then unzip the file
+Download file with wget in terminal. Then unzip the file
 	unzip <filename>
 ./<filename>
 This folder had long ramblining directories but a neat trick is cd <tab*> so it'll auto pop the available filenames. Ls when I enter each folder until I find a program to run. run it with ./ and it replied with the flag.
@@ -80,7 +80,7 @@ More running python. Helpful to remember. -d is to decrypt btw. Wget both files.
 	Python code.py -d codebook.txt. 
 
 #fixme
-fixed the script. Indentations mean something in python. Read through the code. On Studio Visual Code, it'll blatantly tell you which line is wrong.
+Fixed the script. Indentations mean something in python. Read through the code. On Studio Visual Code, it'll blatantly tell you which line is wrong.
 
 #fixme2
 = means to give a value to something. like x = 5 will mean x is 5. == checks for (in)equality. so if x==y, true. x=5, y=6. It’ll return false. 
